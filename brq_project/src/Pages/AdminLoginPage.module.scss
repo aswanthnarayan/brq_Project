@@ -1,0 +1,75 @@
+.login {
+    height: calc(100vh - 3.125rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)),
+      url("../../assets/login.jpeg");
+    background-size: cover;
+  }
+  
+  .loginTitle {
+    font-size: 3rem;
+  }
+  
+  .loginForm {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .loginForm>label {
+    font-size: .9rem;
+    margin: .8rem 0;
+  }
+  
+  .loginInput {
+    padding: .8rem;
+    background-color: white;
+    border: none;
+    border-radius: .8rem;
+  }
+  
+  .loginInput:focus {
+    outline: none;
+  }
+  
+  .loginButton {
+    margin-top: 1.5rem;
+    cursor: pointer;
+    background-color: lightcoral;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: .8rem;
+    text-align: center;
+  }
+  
+  .loginButton:disabled {
+    cursor: not-allowed;
+    background-color: aqua;
+  }
+  
+  .loginRegisterButton {
+    position: absolute;
+    top: 4.75rem;
+    right: 2.2rem;
+    background-color: teal;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 10px;
+  }
+  
+  .loginRegisterButton a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .error{
+    color: red;
+    margin-top: 1rem;
+  }

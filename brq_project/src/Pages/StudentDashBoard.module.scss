@@ -1,0 +1,101 @@
+.home {
+    background-color: rgb(34, 130, 175);
+    width: 100vw;
+    // height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    .studentDetails {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding: .7rem;
+        width: 70%;
+        height: 82.5vh;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        // align-items: center;  
+
+        .topSection {
+            margin-bottom: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            margin-left: 4.1rem;
+            img {
+                width: 80px;
+                height: 80px;
+                border-radius: 5%;
+            }
+        }
+
+        .bottomSection {
+            align-self: center;
+
+            table {
+                height: 100%;
+                border-collapse: collapse;
+                font-size: 0.9em;
+                min-width: 800px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+                thead tr {
+                    background-color: #009879;
+                    color: #ffffff;
+                    text-align: left;
+                }
+
+                th,td{
+                    padding: 7px 20px;
+                }
+               .subjectDelete{
+                display: flex;
+                gap: auto;
+                button{
+                    margin-left: auto;
+                }
+               }
+             
+                tbody tr {
+                    border-bottom: 1px solid #dddddd;
+                }
+                
+                .marktoEdit{
+                    
+                    button{
+                        margin-left: 1rem;
+                    } 
+                }
+                
+                tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+                
+                tbody tr:last-of-type {
+                    border-bottom: 2px solid #009879;
+                }
+            }
+        }
+
+        .pagination{
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+            gap: 2rem;
+
+            button{
+                cursor: pointer;
+            background-color: teal;
+            color: white;
+            padding: .5rem;
+            border: none;
+            border-radius: .8rem;
+            text-align: center;
+            }
+        }
+    }
+}
