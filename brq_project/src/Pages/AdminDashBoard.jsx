@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AdminDashBoard.module.scss';
 import dp from '../assets/2.jpg';
-import { FcPrevious , FcNext } from "react-icons/fc";
 
 const AdminDashBoard = () => {
   const [students, setStudents] = useState([]);
   const [allSubjects, setAllSubjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [editCell, setEditCell] = useState({ index: -1, month: '', subject: '' });
+  const [editCell, setEditCell] = useState({ studentIndex: -1, month: '', subject: '' });
   const monthsPerPage = 3;
 
   useEffect(() => {
     fetch('/Backend.json')
       .then(response => response.json())
       .then(data => {
-        setStudents(data.students); // fetch all students data from json file
-        
-        //to store months in a array
+        setStudents(data.students);
         let subjects = [];
-         data.students.forEach(student => {
+        data.students.forEach(student => {
           Object.keys(student.monthly_marks).forEach(month => {
             Object.keys(student.monthly_marks[month]).forEach(subject => {
               if (!subjects.includes(subject)) {
@@ -32,7 +29,6 @@ const AdminDashBoard = () => {
       .catch(error => console.error('Error fetching students:', error));
   }, []);
 
-  // Calculate the index range of months to display for the current page
   const indexOfLastMonth = currentPage * monthsPerPage;
   const indexOfFirstMonth = indexOfLastMonth - monthsPerPage;
   const currentMonths = Object.keys(students[0]?.monthly_marks || {}).slice(indexOfFirstMonth, indexOfLastMonth);
@@ -49,16 +45,15 @@ const AdminDashBoard = () => {
     }
   };
 
-
-  const handleEdit = (index, month, subject) => {
-    setEditCell({ index, month, subject });
+  const handleEdit = (studentIndex, month, subject) => {
+    setEditCell({ studentIndex, month, subject });
   };
 
-  const handleSave = (newMarks) => {
+  const handleSave = (studentIndex, month, subject, newMarks) => {
     const updatedStudents = [...students];
-    updatedStudents[editCell.index].monthly_marks[editCell.month][editCell.subject] = newMarks;
+    updatedStudents[studentIndex].monthly_marks[month][subject] = newMarks;
     setStudents(updatedStudents);
-    setEditCell({ index: -1, month: '', subject: '' });
+    setEditCell({ studentIndex: -1, month: '', subject: '' });
   };
 
   const handleDelete = (index, subject) => {
@@ -79,7 +74,7 @@ const AdminDashBoard = () => {
   };
 
   return (
-     <div className={styles.home}>
+    <div className={styles.home}>
       {students.map((student, index) => (
         <div key={index} className={styles.studentDetails}>
           <div className={styles.topSection}>
@@ -109,8 +104,8 @@ const AdminDashBoard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {allSubjects.map((subject, index) => (
-                    <tr key={index}>
+                  {allSubjects.map((subject, subjectIndex) => (
+                    <tr key={subjectIndex}>
                       <td className={styles.subjectDelete}>
                         {subject}
                         <button className={styles.deleteBtn} onClick={() => handleDelete(index, subject)}>Delete</button>
@@ -118,8 +113,8 @@ const AdminDashBoard = () => {
                       {currentMonths.map(month => (
                         <td key={month} className={styles.marktoEdit}>
                           {student.monthly_marks[month]?.[subject] || 'N/A'}
-                          {editCell.index === index && editCell.month === month && editCell.subject === subject ? (
-                            <input type="text" defaultValue={student.monthly_marks[month]?.[subject]} onBlur={e => handleSave(e.target.value)} />
+                          {editCell.studentIndex === index && editCell.month === month && editCell.subject === subject ? (
+                            <input type="text" defaultValue={student.monthly_marks[month]?.[subject]} onBlur={e => handleSave(index, month, subject, e.target.value)} />
                           ) : (
                             <button onClick={() => handleEdit(index, month, subject)}>Edit</button>
                           )}
@@ -141,4 +136,4 @@ const AdminDashBoard = () => {
   )
 }
 
-export default AdminDashBoard
+export default AdminDashBoard;
